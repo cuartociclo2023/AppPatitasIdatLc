@@ -1,4 +1,5 @@
 package pe.edu.idat.apppatitasidatlc.util
 
-class TipoMensaje {
+enum class TipoMensaje {
+    ERROR, CORRECTO, ADVERTENCIA, INFORMACION
 }
