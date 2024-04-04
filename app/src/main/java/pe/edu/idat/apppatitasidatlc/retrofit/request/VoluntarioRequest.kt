@@ -1,4 +1,3 @@
 package pe.edu.idat.apppatitasidatlc.retrofit.request
 
-class VoluntarioRequest {
-}
+data class VoluntarioRequest (var idpersona: Int)

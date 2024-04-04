@@ -1,4 +1,3 @@
 package pe.edu.idat.apppatitasidatlc.retrofit.response
 
-class RegistroResponse {
-}
+data class RegistroResponse (var rpta: Boolean, var mensaje: String)
