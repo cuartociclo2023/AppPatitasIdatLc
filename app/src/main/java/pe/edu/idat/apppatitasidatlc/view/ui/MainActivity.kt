@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             val personaEntity = PersonaEntity(
                 response.idpersona.toInt(), response.nombres, response.apellidos, response.email,
                 response.celular, response.esvoluntario, response.password, response.usuario)
-            //personaViewModel.insertar(personaEntity)
+            personaViewModel.insertar(personaEntity)
             startActivity(Intent(applicationContext, HomeActivity::class.java))
         }else{
             AppMensaje.enviarMensaje(binding.root, response.mensaje, TipoMensaje.ERROR)
