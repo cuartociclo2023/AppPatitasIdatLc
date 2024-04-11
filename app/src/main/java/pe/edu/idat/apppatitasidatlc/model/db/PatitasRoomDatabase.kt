@@ -8,7 +8,7 @@ import pe.edu.idat.apppatitasidatlc.model.db.dao.PersonaDao
 import pe.edu.idat.apppatitasidatlc.model.db.entity.PersonaEntity
 
 @Database(entities = [PersonaEntity::class], version = 1)
-abstract class PatitasRoomDatabase: RoomDatabase() {
+public abstract class PatitasRoomDatabase: RoomDatabase() {
 
     abstract fun personaDao(): PersonaDao
     companion object{

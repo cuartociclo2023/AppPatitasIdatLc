@@ -1,7 +1,9 @@
 package pe.edu.idat.apppatitasidatlc.view.ui
 
 import android.os.Bundle
+import android.service.autofill.TextValueSanitizer
 import android.view.Menu
+import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -11,20 +13,23 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import pe.edu.idat.apppatitasidatlc.R
 import pe.edu.idat.apppatitasidatlc.databinding.ActivityHomeBinding
+import pe.edu.idat.apppatitasidatlc.viewmodel.PersonaViewModel
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityHomeBinding
+    private lateinit var personaViewModel: PersonaViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        personaViewModel = ViewModelProvider(this).get(PersonaViewModel::class.java)
         setSupportActionBar(binding.appBarHome.toolbar)
 
         binding.appBarHome.fab.setOnClickListener { view ->
@@ -43,6 +48,21 @@ class HomeActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        mostrarDatosLogin()
+    }
+
+    fun mostrarDatosLogin(){
+        val tvnomapeusuario: TextView = binding.navView.getHeaderView(0)
+            .findViewById(R.id.tvnomapeusuario)
+        val tvemailusuario: TextView = binding.navView.getHeaderView(0)
+            .findViewById(R.id.tvemailusuario)
+        personaViewModel.obtener().observe(this, Observer {
+            persona ->
+                persona.let {
+                    tvnomapeusuario.text = "${persona.nombres} ${persona.apellidos}"
+                    tvemailusuario.text = persona.email
+                }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
